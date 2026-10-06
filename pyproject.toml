@@ -9,8 +9,8 @@ requires-python = ">=3.12"
 dependencies = [
 ]
 
-[tools.poetry]
-
+[tool.poetry]
+packages = [{include = "gambler_problem", from = "src"}]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
