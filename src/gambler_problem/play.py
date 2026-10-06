@@ -1,14 +1,11 @@
 import random
 
 from gambler_problem.env import GamblingGame
-
-state = 40
-env = GamblingGame(ph=0.4, goal=100, start_capital=state)
+from gambler_problem.policy import GreedyPolicy, policy_iteration
 
 
-def run_episode(policy=None, start_state: int = 40):
+def run_episode(env: GamblingGame, policy: GreedyPolicy | None = None, state: int = 50):
     t = 0
-    state = start_state
     while True:
         action = (
             random.choice(env.get_actions())
@@ -31,4 +28,18 @@ def run_episode(policy=None, start_state: int = 40):
         t += 1
 
 
-run_episode()
+# test
+if __name__ == "__main__":
+    env = GamblingGame()
+
+    # run episode with random policy
+    run_episode(env)
+
+    # run episode with policy iterated
+    from gambler_problem.policy import policy_iteration
+
+    greedy_policy, vpi_values = policy_iteration(env)
+
+    run_episode(env, greedy_policy)
+
+    # run with value iteration
